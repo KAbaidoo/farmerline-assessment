@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.kobby.mergdataapp.R
+import io.kobby.mergdataapp.data.api.model.Form
+import io.kobby.mergdataapp.data.api.model.Question
 import io.kobby.mergdataapp.databinding.FragmentFormBinding
 import io.kobby.mergdataapp.util.Resource
 import kotlinx.coroutines.flow.collectLatest
@@ -17,7 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val TAG = "FORM_FRAGMENT"
 
-class FormFragment : Fragment(R.layout.fragment_form) {
+class FormFragment : Fragment(R.layout.fragment_form),FormAdapter.OnItemClickListener {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,29 +27,37 @@ class FormFragment : Fragment(R.layout.fragment_form) {
         val binding = FragmentFormBinding.bind(view)
 
         val viewModel: FormViewModel by viewModel()
+        val formAdapter = FormAdapter(this)
 
 
 binding.apply {
 
+    recyclerView.apply {
+        adapter = formAdapter
+        layoutManager=LinearLayoutManager(requireContext())
+        setHasFixedSize(true)
+    }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.formFlow.collectLatest { result ->
                     when (result) {
                         is Resource.Success -> {
-                            textViewForm.text = result.data.toString()
-                            Log.d(TAG, result.data.toString())
+                         val form =  result.data as Form
+
+                            formAdapter.submitList(form.questions)
+
                         }
                         is Resource.Loading -> {
-                            textViewForm.text = "Loading"
+
                             Log.d(TAG, "Loading!")
                         }
                         is Resource.Failure -> {
-                            textViewForm.text = result.errorMsg
+
                             Log.d(TAG, result.errorMsg)
                         }
                         is Resource.Exception -> {
                             result.throwable.localizedMessage?.let {
-                                textViewForm.text = it
+
                                 Log.d(TAG, it) }
 
                         }
@@ -63,5 +73,9 @@ binding.apply {
 
 
 
+    }
+
+    override fun onItemClick(nonConsentingHousehold: Question) {
+        TODO("Not yet implemented")
     }
 }
