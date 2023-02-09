@@ -1,0 +1,55 @@
+buildscript {
+    ext {
+        // Sdk and tools
+        minSdkVersion = 24
+        targetSdkVersion = 33
+        compileSdkVersion = 33
+
+        // App dependencies
+        appcompat_version = "1.6.1"
+        constraintLayoutVersion = "2.1.4"
+        coroutinesVersion = "1.6.4"
+        fragmentVersion = "1.5.5"
+        gradleVersion = "7.4.0"
+        espressoVersion = "3.5.1"
+        junitVersion = "4.13.2"
+        kotlinVersion = "1.8.0"
+        ktxVersion = "1.9.0"
+        lifecycle_version = "2.5.1"
+        arch_version = "2.1.0"
+        materialVersion = "1.9.0-alpha01"
+        cardviewVersion = "1.0.0"
+        navigation_version = "2.5.3"
+        testExtJunitVersion = "1.1.5"
+
+
+        // koin dependency injection
+        koin_version = "3.3.2"
+        koin_android_version = "3.3.2"
+        koin_ktor = "3.3.0"
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradleVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
