@@ -27,6 +27,9 @@ buildscript {
         koin_version = "3.3.2"
         koin_android_version = "3.3.2"
         koin_ktor = "3.3.0"
+
+        //retrofit version
+        retrofit_version ="2.9.0"
     }
 
     repositories {
@@ -40,6 +43,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
+
     }
 }
 

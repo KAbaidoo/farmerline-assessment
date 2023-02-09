@@ -1,14 +1,18 @@
 package io.kobby.mergdataapp.data.api
 
+
 import io.kobby.mergdataapp.data.api.model.Form
-import io.ktor.client.*
-import io.ktor.client.request.*
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
-class FormApi (private val client : HttpClient){
 
-    suspend fun getForm(endpoint : String): Form = client.get("$BASE_URL$endpoint")
+interface FormApi {
+    @GET("assessment/{endpoint}")
+     suspend fun getForm(@Path("endpoint") endpoint:String):Response<Form>
 
     companion object {
-        private const val BASE_URL= "https://app-testing.mergdata.net/assessment"
+        const val BASE_URL= "https://app-testing.mergdata.net/"
     }
 }

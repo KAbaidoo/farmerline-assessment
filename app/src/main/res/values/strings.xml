@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MergdataApp</string>
+    <string name="test_form_1">Test Form 1</string>
+    <string name="test_form_2">Test Form 2</string>
 </resources>

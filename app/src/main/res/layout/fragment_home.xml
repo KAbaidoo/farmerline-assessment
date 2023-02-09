@@ -6,14 +6,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:text="Home Fragment"
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_test_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="100dp"
+        android:minHeight="50dp"
+        android:text="@string/test_form_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_test_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="100dp"
+        android:minHeight="50dp"
+        android:text="@string/test_form_2"
+        app:layout_constraintEnd_toEndOf="@+id/button_test_1"
+        app:layout_constraintStart_toStartOf="@+id/button_test_1"
+        app:layout_constraintTop_toBottomOf="@+id/button_test_1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

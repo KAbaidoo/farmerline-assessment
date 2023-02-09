@@ -1,13 +1,14 @@
 package io.kobby.mergdataapp.util
 
-sealed class DataState<T>(
-    val data: T? = null,
-    val error: Throwable? = null,
-    val errorMsg: String? = null
+import io.kobby.mergdataapp.R
 
-) {
-    class Success<T>(data: T) : DataState<T>(data)
-    class Loading<T>(data: T? = null) : DataState<T>(data)
-    class Failure<T>(data: T? = null, errorMsg: String) : DataState<T>(data)
-    class Exception<T>(throwable: Throwable, data: T? = null) : DataState<T>(data, throwable)
+
+
+sealed class Resource<out R> {
+    data class Success<out R>(val data: R): Resource<R>()
+    data class Failure<out R>(val errorMsg: String): Resource<R>()
+    object Loading: Resource<Nothing>()
+    data class Exception<R>(val throwable: Throwable, val data: R? = null) : Resource<R>()
 }
+
+

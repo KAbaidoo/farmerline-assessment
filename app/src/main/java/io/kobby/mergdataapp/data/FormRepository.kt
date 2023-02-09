@@ -1,18 +1,36 @@
 package io.kobby.mergdataapp.data
 
+import com.google.gson.Gson
 import io.kobby.mergdataapp.data.api.FormApi
-import io.kobby.mergdataapp.util.DataState
+import io.kobby.mergdataapp.data.api.model.Form
+
+import io.kobby.mergdataapp.util.Resource
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
-class FormRepository(val api: FormApi) {
+class FormRepository(private val api: FormApi) {
 
     suspend fun getForm(endpoint: String) = flow {
-        emit(DataState.Loading())
+        emit(Resource.Loading)
         try {
-            emit(DataState.Success(api.getForm(endpoint)))
+            val response = api.getForm(endpoint)
+
+            if (!response.isSuccessful) {
+                val errorMsg = response.errorBody()?.string()
+                response.errorBody()?.close()
+                errorMsg?.let {
+                    emit(Resource.Failure<String>(it))
+                }
+
+            } else {
+
+                emit(Resource.Success(response.body()))
+            }
+
         } catch (throwable: Throwable) {
-            emit(DataState.Exception(throwable, null))
+//            emit(throwable.localizedMessage?.let { Resource.Failure(it) })
+            emit(Resource.Exception(throwable,null))
         }
     }.flowOn(Dispatchers.IO)
 

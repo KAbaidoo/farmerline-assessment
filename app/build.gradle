@@ -5,7 +5,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-    id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'kotlinx-serialization'
+
+
 }
 
 android {
@@ -91,10 +93,16 @@ dependencies {
     //material cardView
     implementation "androidx.cardview:cardview:$cardviewVersion"
 
-//    ktor
-    implementation 'io.ktor:ktor-client-android:1.5.0'
-    implementation 'io.ktor:ktor-client-serialization:1.5.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1'
-    implementation 'io.ktor:ktor-client-logging-jvm:1.5.0'
+    implementation 'com.google.code.gson:gson:2.10'
 
+
+
+     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
+//
+//
+
+
+    // Retrofit + GSON
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 }

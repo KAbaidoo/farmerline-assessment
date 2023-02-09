@@ -9,5 +9,18 @@
         android:id="@+id/homeFragment"
         android:name="io.kobby.mergdataapp.ui.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_formFragment"
+            app:destination="@id/formFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formFragment"
+        android:name="io.kobby.mergdataapp.ui.form.FormFragment"
+        android:label="Form"
+        tools:layout="@layout/fragment_form" >
+        <argument
+            android:name="endpoint"
+            app:argType="string" />
+    </fragment>
 </navigation>

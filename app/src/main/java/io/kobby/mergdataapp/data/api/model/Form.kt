@@ -1,6 +1,12 @@
 package io.kobby.mergdataapp.data.api.model
 
+import kotlinx.serialization.SerialName
+
+
+@kotlinx.serialization.Serializable
 data class Form(
+    @SerialName("number_of_questions")
     val number_of_questions: Int,
-    val questions: List<Question>
+    @SerialName("questions")
+    val questions: List<Question>?=null
 )
