@@ -37,13 +37,11 @@ constructor(
         }
     }
 
-    fun setQuestion(question: String){
-        findViewById<TextView>(R.id.text_field_question).text =question
+    fun setQuestion(question: String?){
+        findViewById<TextView>(R.id.text_field_question).text =question ?: "title unavailable!"
     }
 
-//    fun getAnswer(): String {
-//        return findViewById<TextInputLayout>(R.id.edit_text_answer).editText?.text.toString()
-//    }
+
 
 
 }

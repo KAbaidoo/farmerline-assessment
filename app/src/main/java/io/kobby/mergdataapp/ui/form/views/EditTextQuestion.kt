@@ -1,4 +1,5 @@
 package io.kobby.mergdataapp.ui.form.views
+
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -22,11 +23,13 @@ constructor(
         inflater.inflate(R.layout.edit_text_question, this)
 
     }
-   fun setQuestion(question: String){
-       findViewById<TextView>(R.id.text_field_question).text =question
-   }
-    fun getAnswer (): String{
-       return  findViewById<TextInputLayout>(R.id.edit_text_answer).editText?.text.toString()
+
+    fun setQuestion(question: String?) {
+        findViewById<TextView>(R.id.text_field_question).text = question ?: "title unavailable!"
+    }
+
+    fun getAnswer(): String {
+        return findViewById<TextInputLayout>(R.id.edit_text_answer).editText?.text.toString()
     }
 
 
