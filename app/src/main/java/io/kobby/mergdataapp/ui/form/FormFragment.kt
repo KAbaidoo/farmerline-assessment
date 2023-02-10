@@ -42,11 +42,14 @@ class FormFragment : Fragment(R.layout.fragment_form) {
                     viewModel.formFlow.collectLatest { result ->
                         when (result) {
                             is Resource.Success -> {
+                                val form = result.data as Form
+                                val res = form.questions?.sortedBy { it.question_number }
+
                                 progressBar.isVisible = false
                                 textViewError.isVisible = false
 
-                                val form = result.data as Form
-                                formAdapter.submitList(form.questions)
+
+                                formAdapter.submitList(res)
                             }
                             is Resource.Loading -> {
                                 progressBar.isVisible = true

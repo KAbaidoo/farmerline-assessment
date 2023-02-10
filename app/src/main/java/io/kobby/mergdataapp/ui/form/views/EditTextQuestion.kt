@@ -1,8 +1,10 @@
 package io.kobby.mergdataapp.ui.form.views
 
 import android.content.Context
+import android.text.Editable
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 
@@ -25,11 +27,15 @@ constructor(
     }
 
     fun setQuestion(question: String?) {
-        findViewById<TextView>(R.id.text_field_question).text = question ?: "title unavailable!"
+        findViewById<TextView>(R.id.text_field_question).text = question ?: "Error: title unavailable!"
     }
 
-    fun getAnswer(): String {
-        return findViewById<TextInputLayout>(R.id.edit_text_answer).editText?.text.toString()
+    fun setDefaultAnswer(defaultAnswer: String?) {
+        findViewById<TextInputLayout>(R.id.edit_text_answer).editText?.setText(defaultAnswer ?: "")
+    }
+
+    fun setQuestionNumber(setQuestionNumber: Int?) {
+        findViewById<TextView>(R.id.text_view_question_number).text = setQuestionNumber.toString() ?: "0"
     }
 
 

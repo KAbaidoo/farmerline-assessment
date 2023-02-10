@@ -70,6 +70,8 @@ class FormAdapter :
             binding.apply {
                 questionView.apply {
                     setQuestion(question.title)
+                    setDefaultAnswer(question.defaultAnswer)
+                    setQuestionNumber(question.question_number)
                 }
 
             }
@@ -82,7 +84,8 @@ class FormAdapter :
             binding.apply {
                 questionView.apply {
                     setQuestion(question.title)
-                    setRadioButtons(question.radio_button_option)
+                    setQuestionNumber(question.question_number)
+                    question.radio_button_option?.let { setRadioButtons(it) }
                 }
 
             }

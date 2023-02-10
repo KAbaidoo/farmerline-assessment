@@ -7,7 +7,7 @@ import kotlinx.serialization.SerialName
 @kotlinx.serialization.Serializable
 data class RadioButtonOption(
     @SerialName("id")
-    val id: Int,
+    val id: Int?,
     @SerialName("name")
-    val name: String
+    val name: String?
 )

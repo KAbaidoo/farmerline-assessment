@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
+import com.google.android.material.textfield.TextInputLayout
 
 import io.kobby.mergdataapp.R
 import io.kobby.mergdataapp.data.api.model.RadioButtonOption
@@ -30,17 +31,20 @@ constructor(
         val radioGroup = findViewById<RadioGroup>(R.id.radio_group)
         for (rb in radioButtons) {
             val r = RadioButton(ctx).apply {
-                text = rb.name
-                id = rb.id
+                text = rb.name ?: ""
+                id = rb.id!!
             }
             radioGroup.addView(r)
         }
     }
 
     fun setQuestion(question: String?){
-        findViewById<TextView>(R.id.text_field_question).text =question ?: "title unavailable!"
+        findViewById<TextView>(R.id.text_field_question).text =question ?: "Error: title unavailable!"
     }
 
+    fun setQuestionNumber(setQuestionNumber: Int?) {
+        findViewById<TextView>(R.id.text_view_question_number).text = setQuestionNumber.toString() ?: "0"
+    }
 
 
 
