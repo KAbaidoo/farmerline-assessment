@@ -13,7 +13,7 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    factory { provideRetrofit() }
+    single { provideRetrofit() }
     single{ provideCourseApi(get()) }
 
     factory { FormRepository(get()) }

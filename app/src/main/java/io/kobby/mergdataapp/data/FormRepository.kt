@@ -1,11 +1,8 @@
 package io.kobby.mergdataapp.data
 
-import com.google.gson.Gson
+
 import io.kobby.mergdataapp.data.api.FormApi
-import io.kobby.mergdataapp.data.api.model.Form
-
 import io.kobby.mergdataapp.util.Resource
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
@@ -29,7 +26,6 @@ class FormRepository(private val api: FormApi) {
             }
 
         } catch (throwable: Throwable) {
-//            emit(throwable.localizedMessage?.let { Resource.Failure(it) })
             emit(Resource.Exception(throwable,null))
         }
     }.flowOn(Dispatchers.IO)

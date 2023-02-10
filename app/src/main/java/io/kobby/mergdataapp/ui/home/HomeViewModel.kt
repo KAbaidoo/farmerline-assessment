@@ -22,6 +22,6 @@ class HomeViewModel : ViewModel() {
 
 
        sealed class HomeEvent {
-        data class NavigateToForm(val endpoint: String) : HomeEvent()
+        data class NavigateToForm( var endpoint: String) : HomeEvent()
     }
 }
