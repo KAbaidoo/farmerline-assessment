@@ -19,7 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val TAG = "FORM_FRAGMENT"
 
-class FormFragment : Fragment(R.layout.fragment_form),FormAdapter.OnItemClickListener {
+class FormFragment : Fragment(R.layout.fragment_form) {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class FormFragment : Fragment(R.layout.fragment_form),FormAdapter.OnItemClickLis
         val binding = FragmentFormBinding.bind(view)
 
         val viewModel: FormViewModel by viewModel()
-        val formAdapter = FormAdapter(this)
+        val formAdapter = FormAdapter()
 
 
 binding.apply {
@@ -42,22 +42,19 @@ binding.apply {
                 viewModel.formFlow.collectLatest { result ->
                     when (result) {
                         is Resource.Success -> {
+                            progressBar.visibility = View.INVISIBLE
                          val form =  result.data as Form
-
                             formAdapter.submitList(form.questions)
-
                         }
                         is Resource.Loading -> {
-
-                            Log.d(TAG, "Loading!")
+                            progressBar.visibility = View.VISIBLE
                         }
                         is Resource.Failure -> {
-
-                            Log.d(TAG, result.errorMsg)
+                            progressBar.visibility = View.INVISIBLE
+                            textViewError.text = result.errorMsg
                         }
                         is Resource.Exception -> {
                             result.throwable.localizedMessage?.let {
-
                                 Log.d(TAG, it) }
 
                         }
@@ -75,7 +72,4 @@ binding.apply {
 
     }
 
-    override fun onItemClick(nonConsentingHousehold: Question) {
-        TODO("Not yet implemented")
-    }
 }

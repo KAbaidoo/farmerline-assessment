@@ -2,63 +2,94 @@ package io.kobby.mergdataapp.ui.form
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.kobby.mergdataapp.data.api.model.Question
 import io.kobby.mergdataapp.databinding.ItemQuestionEditTextBinding
-import io.ktor.server.routing.RoutingPath.Companion.root
+import io.kobby.mergdataapp.databinding.ItemQuestionRadioButtonsBinding
+import io.kobby.mergdataapp.util.FormType
 
 
-class FormAdapter(private val listener: OnItemClickListener) :
-    ListAdapter<Question, FormAdapter.FormAdapterViewHolder>(
+class FormAdapter :
+    ListAdapter<Question, RecyclerView.ViewHolder>(
         DiffCallback()
     ) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FormAdapterViewHolder {
-        val binding = ItemQuestionEditTextBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return FormAdapterViewHolder(binding)
-    }
+    ):RecyclerView.ViewHolder =
+        if (viewType == 0)
+            {
+                val binding = ItemQuestionEditTextBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                 FormAdapterViewHolderEditText(binding)
+            }
+            else {
+                val binding = ItemQuestionRadioButtonsBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                 FormAdapterViewHolderRadioButtons(binding)
+            }
 
-    override fun onBindViewHolder(holder: FormAdapterViewHolder, position: Int) {
+
+    override fun getItemViewType(position: Int): Int = if(getItem(position).form_type == FormType.EDIT_TEXT.name)
+        0
+    else
+        2
+
+
+
+
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentItem = getItem(position)
-        holder.bind(currentItem)
-    }
-
-
-    inner class FormAdapterViewHolder(private val binding: ItemQuestionEditTextBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            binding.apply {
-                root.setOnClickListener {
-                    val position = adapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val nonConsentingHousehold = getItem(position)
-//                        listener.onItemClick(nonConsentingHousehold)
-                    }
-                }
+        when(holder.itemViewType){
+            0 ->{ val editTextHolder = holder as FormAdapterViewHolderEditText
+                editTextHolder.bind(currentItem)
+            }
+            else->{
+                val radioButtonsHolder = holder as FormAdapterViewHolderRadioButtons
+                radioButtonsHolder.bind(currentItem)
             }
         }
+
+    }
+
+
+    inner class FormAdapterViewHolderEditText(private val binding: ItemQuestionEditTextBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(question: Question) {
             binding.apply {
-                questionView.setQuestion(question.title)
+                questionView.apply {
+                    setQuestion(question.title)
+                }
 
             }
         }
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(nonConsentingHousehold: Question)
+    inner class FormAdapterViewHolderRadioButtons(private val binding: ItemQuestionRadioButtonsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(question: Question) {
+            binding.apply {
+                questionView.apply {
+                    setQuestion(question.title)
+                    setRadioButtons(question.radio_button_option)
+                }
 
+            }
+        }
     }
+
+
 
     class DiffCallback : DiffUtil.ItemCallback<Question>() {
         override fun areItemsTheSame(oldItem: Question, newItem: Question) =

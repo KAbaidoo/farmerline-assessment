@@ -18,28 +18,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-
-        android:id="@+id/edit_text_answer"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+    <RadioGroup
+        android:id="@+id/radio_group"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:minHeight="20dp"
-        app:boxStrokeWidth="2dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_field_question">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint=""
-            android:inputType="text"
-            android:maxLines="3" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
